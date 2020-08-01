@@ -33,7 +33,7 @@
       tools:ignore="GoogleAppIndexingWarning">
 
     <activity
-        android:name=".HelloArActivity"
+        android:name="kr.ac.jbnu.se.doview.java.ARActivity"
         android:configChanges="orientation|screenSize"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
