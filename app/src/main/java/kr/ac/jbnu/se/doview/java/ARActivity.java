@@ -16,12 +16,12 @@
 
 package kr.ac.jbnu.se.doview.java;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -58,6 +58,7 @@ import kr.ac.jbnu.se.doview.java.common.rendering.PlaneRenderer;
 import kr.ac.jbnu.se.doview.java.common.rendering.PointCloudRenderer;
 import kr.ac.jbnu.se.doview.java.common.rendering.Texture;
 import kr.ac.jbnu.se.doview.java.helloar.R;
+import kr.ac.jbnu.se.doview.java.model.GlobalStorage;
 
 import com.google.ar.core.exceptions.CameraNotAvailableException;
 import com.google.ar.core.exceptions.UnavailableApkTooOldException;
@@ -123,7 +124,7 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_ar_render);
         surfaceView = findViewById(R.id.surfaceview);
         displayRotationHelper = new DisplayRotationHelper(/*context=*/ this);
 
@@ -254,6 +255,8 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         GLES20.glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
+        String[] objTexture = GlobalStorage.arDataHashMap.get("test");
+
         // Prepare the rendering objects. This involves reading shaders, so may throw an IOException.
         try {
             // Create the texture and pass it to ARCore session to be filled during update().
@@ -262,7 +265,9 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
             planeRenderer.createOnGlThread(/*context=*/ this, "models/trigrid.png");
             pointCloudRenderer.createOnGlThread(/*context=*/ this);
 
-            virtualObject.createOnGlThread(/*context=*/ this, "models/andy.obj", "models/andy.png");
+            assert objTexture != null;
+            virtualObject.createOnGlThread(/*context=*/ this, objTexture[0], objTexture[1]); // objAsset(obj), texture(png)
+
             virtualObject.setBlendMode(BlendMode.AlphaBlending);
             virtualObject.setDepthTexture(
                     depthTexture.getTextureId(), depthTexture.getWidth(), depthTexture.getHeight());
