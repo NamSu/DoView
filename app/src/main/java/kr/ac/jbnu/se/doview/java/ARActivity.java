@@ -59,6 +59,7 @@ import kr.ac.jbnu.se.doview.java.common.rendering.PointCloudRenderer;
 import kr.ac.jbnu.se.doview.java.common.rendering.Texture;
 import kr.ac.jbnu.se.doview.java.helloar.R;
 import kr.ac.jbnu.se.doview.java.model.GlobalStorage;
+import kr.ac.jbnu.se.doview.java.rendering.SampleGLTFRenderer;
 
 import com.google.ar.core.exceptions.CameraNotAvailableException;
 import com.google.ar.core.exceptions.UnavailableApkTooOldException;
@@ -98,6 +99,8 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
     private final PointCloudRenderer pointCloudRenderer = new PointCloudRenderer();
     private final Texture depthTexture = new Texture();
     private boolean calculateUVTransform = true;
+
+    private final SampleGLTFRenderer sampleGLTFRenderer = new SampleGLTFRenderer();
 
     private final DepthSettings depthSettings = new DepthSettings();
     private boolean[] settingsMenuDialogCheckboxes;
@@ -266,12 +269,15 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
             pointCloudRenderer.createOnGlThread(/*context=*/ this);
 
             assert objTexture != null;
-            virtualObject.createOnGlThread(/*context=*/ this, objTexture[0], objTexture[1]); // objAsset(obj), texture(png)
+/*            virtualObject.createOnGlThread(*//*context=*//* this, objTexture[0], objTexture[1]); // objAsset(obj), texture(png)
+
 
             virtualObject.setBlendMode(BlendMode.AlphaBlending);
             virtualObject.setDepthTexture(
                     depthTexture.getTextureId(), depthTexture.getWidth(), depthTexture.getHeight());
-            virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
+            virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);*/
+
+            sampleGLTFRenderer.createOnGlThread(this, "helloworld.gltf");
 
         } catch (IOException e) {
             Log.e(TAG, "Failed to read an asset file", e);
@@ -311,7 +317,7 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
                 // virtual object shader, to perform kernel-based blur effects.
                 calculateUVTransform = false;
                 float[] transform = getTextureTransformMatrix(frame);
-                virtualObject.setUvTransformMatrix(transform);
+                //virtualObject.setUvTransformMatrix(transform);
             }
 
             if (session.isDepthModeSupported(Config.DepthMode.AUTOMATIC)) {
@@ -369,7 +375,7 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
 
             // Visualize anchors created by touch.
             float scaleFactor = 1.0f;
-            virtualObject.setUseDepthForOcclusion(this, depthSettings.useDepthForOcclusion());
+            //virtualObject.setUseDepthForOcclusion(this, depthSettings.useDepthForOcclusion());
             for (ColoredAnchor coloredAnchor : anchors) {
                 if (coloredAnchor.anchor.getTrackingState() != TrackingState.TRACKING) {
                     continue;
@@ -379,8 +385,11 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
                 coloredAnchor.anchor.getPose().toMatrix(anchorMatrix, 0);
 
                 // Update and draw the model and its shadow.
-                virtualObject.updateModelMatrix(anchorMatrix, scaleFactor);
-                virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, coloredAnchor.color);
+                //virtualObject.updateModelMatrix(anchorMatrix, scaleFactor);
+                //virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, coloredAnchor.color);
+
+                sampleGLTFRenderer.updateModelMatrix(anchorMatrix, scaleFactor);
+                sampleGLTFRenderer.draw(viewmtx, projmtx);
             }
 
         } catch (Throwable t) {

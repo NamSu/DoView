@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         Button button = (Button)findViewById(R.id.test_button);
 
         String[] testString = new String[2];
-        testString[0] = "models/andy.obj";
-        testString[1] = "models/andy.png";
+        testString[0] = "models/anchor.obj";
+        testString[1] = "models/anchor.png";
 
         GlobalStorage.arDataHashMap.put("test", testString);
 
