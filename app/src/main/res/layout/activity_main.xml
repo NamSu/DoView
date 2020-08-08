@@ -3,13 +3,138 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="kr.ac.jbnu.se.doview.java.MainActivity">
 
-    <Button
-        android:id="@+id/test_button"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="265dp" />
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/main_drawer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!--main view area-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff">
+
+            <TextView
+                android:id="@+id/main_list_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:text="목록"
+                android:textColor="#000000"
+                android:textSize="32sp"
+                android:textStyle="bold"/>
+
+            <ListView
+                android:id="@+id/main_list_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_list_text"/>
+
+            <ImageButton
+                android:id="@+id/main_list_add_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="15dp"
+                android:src="@drawable/ic_launcher"
+                android:background="@android:color/transparent"/>
+
+        </RelativeLayout>
+
+        <!--drawer view area-->
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:background="#e0e0e0">
+
+            <!--drawer upper layout area-->
+            <RelativeLayout
+                android:id="@+id/main_drawer_upper_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_margin="20dp">
+
+                <ImageView
+                    android:id="@+id/main_drawer_user_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_drawer_user_badge"/>
+
+                <!--drawer upper layout user identify layout-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/main_drawer_user_badge"
+                    android:orientation="vertical"
+                    android:background="#fafafa">
+
+                    <TextView
+                        android:id="@+id/main_drawer_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:layout_marginLeft="5dp"
+                        android:text="Name"
+                        android:textColor="#5e5e5e"
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/main_drawer_user_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:layout_marginLeft="5dp"
+                        android:text="Email"
+                        android:textColor="#c3c3c3"
+                        android:textSize="12sp"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!--drawer list layout area-->
+            <ListView
+                android:id="@+id/main_drawer_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_drawer_upper_layout"
+                android:layout_margin="20dp"/>
+
+            <!--drawer down layout area-->
+            <Button
+                android:id="@+id/main_drawer_logout_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_alignParentBottom="true"
+                android:background="#5e5e5e"
+                android:text="로그아웃"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.DrawerLayout>
 
 </android.support.constraint.ConstraintLayout>

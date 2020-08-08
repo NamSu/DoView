@@ -52,6 +52,12 @@
 
     </activity>
 
+    <activity android:name="kr.ac.jbnu.se.doview.java.SplashActivity"
+        android:screenOrientation="locked"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+
+    </activity>
+
     <!-- Indicates whether "Google Play Services for AR" (ARCore) is "required" or "optional". -->
     <meta-data android:name="com.google.ar.core" android:value="required" />
   </application>
