@@ -36,8 +36,8 @@ import kr.ac.jbnu.se.doview.java.gles.ShaderProgram;
  * render helloworld.gltf. This is not intended to be a generic glTF renderer; it is intended to
  * be an introduction to 3D scene rendering with OpenGL ES APIs and the glTF format.
  */
-public class SampleGLTFRenderer {
-    private static final String TAG = SampleGLTFRenderer.class.getSimpleName();
+public class GLTFRenderer {
+    private static final String TAG = GLTFRenderer.class.getSimpleName();
 
     private static final int COORDS_PER_VERTEX = 3;
     private static final int BYTES_PER_FLOAT = 4;
@@ -54,7 +54,7 @@ public class SampleGLTFRenderer {
     private final float[] modelViewMatrix = new float[16];
     private final float[] modelViewProjectionMatrix = new float[16];
 
-    public SampleGLTFRenderer() {}
+    public GLTFRenderer() {}
 
     // For simplicity we're hardcoding the component types for our render objects rather than
     // creating the typed Buffers based on the accessor's componentType.
@@ -72,24 +72,24 @@ public class SampleGLTFRenderer {
     }
 
     // Prepares render data for each glTF mesh primitive.
-    private ArrayList<GLTFRenderObject> CreateGLTFRenderObjects(SampleGLTFReader.GLTFScene gltfScene) {
+    private ArrayList<GLTFRenderObject> CreateGLTFRenderObjects(GLTFReader.GLTFScene gltfScene) {
         ArrayList<GLTFRenderObject> renderObjects = new ArrayList<>();
         // Note in real glTF nodes can have children. Here we're only loading top level siblings for the sample.
         for (int i = 0; i < gltfScene.meshes.size(); ++i) {
-            SampleGLTFReader.GLTFScene.Mesh mesh = gltfScene.meshes.get(i);
+            GLTFReader.GLTFScene.Mesh mesh = gltfScene.meshes.get(i);
             // Add each primitive into the render object list.
             for (int j = 0; j < mesh.primitives.size(); ++j) {
                 GLTFRenderObject renderObject = new GLTFRenderObject();
 
-                SampleGLTFReader.GLTFScene.Primitive primitive = mesh.primitives.get(j);
+                GLTFReader.GLTFScene.Primitive primitive = mesh.primitives.get(j);
                 // Find which accessor contains the data for this attribute
                 int accessorIdx = primitive.attributes.get("POSITION");
-                SampleGLTFReader.GLTFScene.Accessor accessor = gltfScene.accessors.get(accessorIdx);
-                SampleGLTFReader.GLTFScene.BufferView bufferView = gltfScene.bufferViews.get(accessor.bufferView);
-                SampleGLTFReader.GLTFScene.Buffer buffer = gltfScene.buffers.get(bufferView.buffer);
+                GLTFReader.GLTFScene.Accessor accessor = gltfScene.accessors.get(accessorIdx);
+                GLTFReader.GLTFScene.BufferView bufferView = gltfScene.bufferViews.get(accessor.bufferView);
+                GLTFReader.GLTFScene.Buffer buffer = gltfScene.buffers.get(bufferView.buffer);
 
                 // Load vertex data embedded in JSON
-                if (accessor.componentType == SampleGLTFReader.COMPONENT_TYPE_FLOAT) {
+                if (accessor.componentType == GLTFReader.COMPONENT_TYPE_FLOAT) {
                     renderObject.vertices = buffer.data.asFloatBuffer();
                     renderObject.vertexByteLength = bufferView.byteLength;
                     renderObject.vertexByteOffset = bufferView.byteOffset;
@@ -106,7 +106,7 @@ public class SampleGLTFRenderer {
                 bufferView = gltfScene.bufferViews.get(accessor.bufferView);
                 buffer = gltfScene.buffers.get(bufferView.buffer);
 
-                if (bufferView.target == SampleGLTFReader.TARGET_ELEMENT_ARRAY_BUFFER) {
+                if (bufferView.target == GLTFReader.TARGET_ELEMENT_ARRAY_BUFFER) {
                     renderObject.indices = buffer.data.asShortBuffer();
                     renderObject.indexByteLength = bufferView.byteLength;
                     renderObject.indexByteOffset = bufferView.byteOffset;
@@ -176,7 +176,7 @@ public class SampleGLTFRenderer {
 
         // Read the gltf file and create render objects.
         InputStream gltfInput = context.getAssets().open(glTFAssetName);
-        SampleGLTFReader.GLTFScene gltfScene = SampleGLTFReader.read(gltfInput);
+        GLTFReader.GLTFScene gltfScene = GLTFReader.read(gltfInput);
         gltfRenderObjects = CreateGLTFRenderObjects(gltfScene);
     }
 

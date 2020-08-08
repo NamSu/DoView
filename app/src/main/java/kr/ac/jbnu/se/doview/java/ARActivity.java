@@ -53,13 +53,12 @@ import kr.ac.jbnu.se.doview.java.common.helpers.TapHelper;
 import kr.ac.jbnu.se.doview.java.common.helpers.TrackingStateHelper;
 import kr.ac.jbnu.se.doview.java.common.rendering.BackgroundRenderer;
 import kr.ac.jbnu.se.doview.java.common.rendering.ObjectRenderer;
-import kr.ac.jbnu.se.doview.java.common.rendering.ObjectRenderer.BlendMode;
 import kr.ac.jbnu.se.doview.java.common.rendering.PlaneRenderer;
 import kr.ac.jbnu.se.doview.java.common.rendering.PointCloudRenderer;
 import kr.ac.jbnu.se.doview.java.common.rendering.Texture;
 import kr.ac.jbnu.se.doview.java.helloar.R;
 import kr.ac.jbnu.se.doview.java.model.GlobalStorage;
-import kr.ac.jbnu.se.doview.java.rendering.SampleGLTFRenderer;
+import kr.ac.jbnu.se.doview.java.rendering.GLTFRenderer;
 
 import com.google.ar.core.exceptions.CameraNotAvailableException;
 import com.google.ar.core.exceptions.UnavailableApkTooOldException;
@@ -72,6 +71,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
@@ -100,7 +100,7 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
     private final Texture depthTexture = new Texture();
     private boolean calculateUVTransform = true;
 
-    private final SampleGLTFRenderer sampleGLTFRenderer = new SampleGLTFRenderer();
+    private final GLTFRenderer gltfRenderer = new GLTFRenderer();
 
     private final DepthSettings depthSettings = new DepthSettings();
     private boolean[] settingsMenuDialogCheckboxes;
@@ -110,6 +110,8 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
     private static final float[] DEFAULT_COLOR = new float[]{0f, 0f, 0f, 0f};
 
     private static final String SEARCHING_PLANE_MESSAGE = "Searching for surfaces...";
+
+    private static String[] objTexture;
 
     // Anchors created from taps used for object placing with a given color.
     private static class ColoredAnchor {
@@ -235,6 +237,30 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
     }
 
     @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("AR 종료");
+        builder.setMessage("정말로 현재 AR을 종료하시겠습니까?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.show();
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
         super.onRequestPermissionsResult(requestCode, permissions, results);
         if (!CameraPermissionHelper.hasCameraPermission(this)) {
@@ -258,7 +284,7 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         GLES20.glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-        String[] objTexture = GlobalStorage.arDataHashMap.get("test");
+        //String[] objTexture = GlobalStorage.arDataHashMap.get("test"); // if obj -> obj, png or gltf -> gltf, null
 
         // Prepare the rendering objects. This involves reading shaders, so may throw an IOException.
         try {
@@ -269,15 +295,18 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
             pointCloudRenderer.createOnGlThread(/*context=*/ this);
 
             assert objTexture != null;
-/*            virtualObject.createOnGlThread(*//*context=*//* this, objTexture[0], objTexture[1]); // objAsset(obj), texture(png)
+
+            if (GlobalStorage.isModelObj) {
+                virtualObject.createOnGlThread(this, objTexture[0], objTexture[1]); // objAsset(obj), texture(png)
 
 
-            virtualObject.setBlendMode(BlendMode.AlphaBlending);
-            virtualObject.setDepthTexture(
-                    depthTexture.getTextureId(), depthTexture.getWidth(), depthTexture.getHeight());
-            virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);*/
-
-            sampleGLTFRenderer.createOnGlThread(this, "helloworld.gltf");
+                virtualObject.setBlendMode(ObjectRenderer.BlendMode.AlphaBlending);
+                virtualObject.setDepthTexture(
+                        depthTexture.getTextureId(), depthTexture.getWidth(), depthTexture.getHeight());
+                virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
+            } else {
+                gltfRenderer.createOnGlThread(this, objTexture[0]);
+            }
 
         } catch (IOException e) {
             Log.e(TAG, "Failed to read an asset file", e);
@@ -317,7 +346,9 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
                 // virtual object shader, to perform kernel-based blur effects.
                 calculateUVTransform = false;
                 float[] transform = getTextureTransformMatrix(frame);
-                //virtualObject.setUvTransformMatrix(transform);
+                if (GlobalStorage.isModelObj) {
+                    virtualObject.setUvTransformMatrix(transform);
+                }
             }
 
             if (session.isDepthModeSupported(Config.DepthMode.AUTOMATIC)) {
@@ -375,7 +406,10 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
 
             // Visualize anchors created by touch.
             float scaleFactor = 1.0f;
-            //virtualObject.setUseDepthForOcclusion(this, depthSettings.useDepthForOcclusion());
+            if (GlobalStorage.isModelObj) {
+                virtualObject.setUseDepthForOcclusion(this, depthSettings.useDepthForOcclusion());
+            }
+
             for (ColoredAnchor coloredAnchor : anchors) {
                 if (coloredAnchor.anchor.getTrackingState() != TrackingState.TRACKING) {
                     continue;
@@ -385,16 +419,29 @@ public class ARActivity extends AppCompatActivity implements GLSurfaceView.Rende
                 coloredAnchor.anchor.getPose().toMatrix(anchorMatrix, 0);
 
                 // Update and draw the model and its shadow.
-                //virtualObject.updateModelMatrix(anchorMatrix, scaleFactor);
-                //virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, coloredAnchor.color);
 
-                sampleGLTFRenderer.updateModelMatrix(anchorMatrix, scaleFactor);
-                sampleGLTFRenderer.draw(viewmtx, projmtx);
+                if (GlobalStorage.isModelObj) {
+                    virtualObject.updateModelMatrix(anchorMatrix, scaleFactor);
+                    virtualObject.draw(viewmtx, projmtx, colorCorrectionRgba, coloredAnchor.color);
+                } else {
+                    gltfRenderer.updateModelMatrix(anchorMatrix, scaleFactor);
+                    gltfRenderer.draw(viewmtx, projmtx);
+                }
+
             }
 
         } catch (Throwable t) {
             // Avoid crashing the application due to unhandled exceptions.
             Log.e(TAG, "Exception on the OpenGL thread", t);
+        }
+    }
+
+    public static boolean insertAsset(String assetString) {
+        if (GlobalStorage.arDataHashMap.containsKey(assetString)) {
+            objTexture = GlobalStorage.arDataHashMap.get(assetString);
+            return true;
+        } else {
+            return false;
         }
     }
 
