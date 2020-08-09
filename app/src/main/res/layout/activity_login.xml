@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="kr.ac.jbnu.se.doview.java.LogInActivity">
+    ​
+
+    <ImageView
+        android:id="@+id/color"
+        android:layout_width="187dp"
+        android:layout_height="187dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:gravity="right"
+        android:src="@drawable/img_splash_white" />
+
+
+
+    ​
+    <EditText
+        android:id="@+id/edittext_email"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:fontFamily="@font/GodoM"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress" />
+    ​
+    <EditText
+        android:id="@+id/edittext_password"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/GodoM"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <CheckBox
+        android:id="@+id/cb_auto_login"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/GodoM"
+        android:text="자동 로그인"/>
+    ​
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_gravity="center"
+            android:background="#29BDC7"
+            android:fontFamily="@font/GodoM"
+            android:layout_width="80sp"
+            android:layout_height="40sp"
+            android:text="log in"
+            android:textSize="20sp"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="    "/>
+
+        ​
+        <Button
+            android:id="@+id/btn_signup"
+            android:layout_width="80sp"
+            android:layout_height="40sp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/GodoM"
+            android:background="#29BDC7"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:text="sign up" />
+    </LinearLayout>
+
+    ​
+</LinearLayout>
