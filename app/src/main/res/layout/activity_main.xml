@@ -21,34 +21,31 @@
             android:layout_height="match_parent"
             android:background="#ffffff">
 
-            <TextView
-                android:id="@+id/main_list_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_centerHorizontal="true"
+
+            <ImageView
+                android:id="@+id/main_icon"
                 android:layout_alignParentTop="true"
-                android:text="목록"
-                android:textColor="#000000"
-                android:textSize="32sp"
-                android:textStyle="bold"/>
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:src="@drawable/img_splash_test"
+                android:layout_centerInParent="true"/>
 
             <ListView
                 android:id="@+id/main_list_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/main_list_text"/>
+                android:layout_below="@+id/main_icon"
+                android:layout_marginTop="0dp" />
 
             <ImageButton
                 android:id="@+id/main_list_add_btn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="15dp"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/plus"
+                android:scaleType="centerInside"
                 android:background="@android:color/transparent"/>
 
         </RelativeLayout>
@@ -91,6 +88,7 @@
                         android:layout_weight="0.5"
                         android:layout_marginLeft="5dp"
                         android:text="Name"
+                        android:fontFamily="@font/godo"
                         android:textColor="#5e5e5e"
                         android:textSize="14sp"
                         android:textStyle="bold"/>
@@ -102,6 +100,7 @@
                         android:layout_weight="0.5"
                         android:layout_marginLeft="5dp"
                         android:text="Email"
+                        android:fontFamily="@font/godo"
                         android:textColor="#c3c3c3"
                         android:textSize="12sp"
                         android:textStyle="bold"/>
@@ -120,6 +119,21 @@
 
             <!--drawer down layout area-->
             <Button
+                android:id="@+id/main_drawer_name_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="85dp"
+                android:layout_alignParentBottom="true"
+                android:background="#29BDC7"
+                android:fontFamily="@font/godo"
+                android:text="닉네임 설정"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+            <Button
                 android:id="@+id/main_drawer_logout_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -127,7 +141,8 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_alignParentBottom="true"
-                android:background="#5e5e5e"
+                android:background="#29BDC7"
+                android:fontFamily="@font/godo"
                 android:text="로그아웃"
                 android:textColor="#ffffff"
                 android:textSize="12sp"

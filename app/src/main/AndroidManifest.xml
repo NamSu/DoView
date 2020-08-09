@@ -26,7 +26,7 @@
 
   <application
       android:allowBackup="false"
-      android:icon="@drawable/ic_launcher"
+      android:icon="@drawable/img_splash_test"
       android:label="@string/app_name"
       android:theme="@style/AppTheme"
       android:usesCleartextTraffic="false"
@@ -34,7 +34,7 @@
 
     <activity android:name="kr.ac.jbnu.se.doview.java.MainActivity"
               android:screenOrientation="locked"
-              android:theme="@style/Theme.AppCompat">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
 
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>

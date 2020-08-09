@@ -20,6 +20,7 @@
             android:layout_weight="0.5"
             android:text="AssetName"
             android:textSize="16sp"
+            android:fontFamily="@font/godo"
             android:textColor="#000000"
             android:textStyle="bold"/>
 
@@ -32,6 +33,7 @@
             android:gravity="center"
             android:text="AssetName"
             android:textSize="12sp"
+            android:fontFamily="@font/godo"
             android:textColor="#999999"/>
     </LinearLayout>
 
@@ -44,6 +46,7 @@
         android:gravity="center"
         android:layout_weight="0.5"
         android:text="AssetObj"
+        android:fontFamily="@font/godo"
         android:textSize="24sp"
         android:textColor="#000000"
         android:textStyle="bold"/>
