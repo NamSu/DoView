@@ -27,7 +27,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_width="160dp"
                 android:layout_height="100dp"
-                android:src="@drawable/img_splash_test"
+                android:src="@drawable/icon_splash_test_rect"
                 android:layout_centerInParent="true"/>
 
             <ListView

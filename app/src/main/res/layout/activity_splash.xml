@@ -6,12 +6,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff">
+        android:background="#29BDC7">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/img_splash_test"
+            android:src="@drawable/icon_splash_test_round"
             android:layout_centerInParent="true"/>
 
     </RelativeLayout>

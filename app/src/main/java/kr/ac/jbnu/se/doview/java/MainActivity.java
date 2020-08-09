@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.w3c.dom.Text;
+
 import kr.ac.jbnu.se.doview.java.R;
 import kr.ac.jbnu.se.doview.java.model.GlobalStorage;
 import kr.ac.jbnu.se.doview.java.view.AssetListAdapter;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnNickName, btnLogOut;
     private View dialogView;
     private TextView textNickName;
+    private TextView textEmail;
     private EditText editNickName;
 
     @Override
@@ -93,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
         btnNickName = (Button) findViewById(R.id.main_drawer_name_btn);
 
         textNickName = (TextView) findViewById(R.id.main_drawer_user_name);
+        textEmail = (TextView)findViewById(R.id.main_drawer_user_email);
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            textNickName.setText(firebaseAuth.getCurrentUser().getDisplayName());
+            textEmail.setText(firebaseAuth.getCurrentUser().getEmail());
+        }
 
         btnNickName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -139,6 +148,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 assetListAdapter.notifyDataSetChanged();
+                if (firebaseAuth.getCurrentUser() != null) {
+                    textNickName.setText(firebaseAuth.getCurrentUser().getDisplayName());
+                    textEmail.setText(firebaseAuth.getCurrentUser().getEmail());
+                }
             }
         }, 15000);
     }
