@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import kr.ac.jbnu.se.doview.java.helloar.R;
+import kr.ac.jbnu.se.doview.java.R;
 import kr.ac.jbnu.se.doview.java.model.GlobalStorage;
 
 public class SplashActivity extends AppCompatActivity {

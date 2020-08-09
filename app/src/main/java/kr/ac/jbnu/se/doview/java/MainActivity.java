@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import kr.ac.jbnu.se.doview.java.helloar.R;
+import kr.ac.jbnu.se.doview.java.R;
 import kr.ac.jbnu.se.doview.java.model.GlobalStorage;
 import kr.ac.jbnu.se.doview.java.view.AssetListAdapter;
 

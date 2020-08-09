@@ -56,7 +56,7 @@ import kr.ac.jbnu.se.doview.java.common.rendering.ObjectRenderer;
 import kr.ac.jbnu.se.doview.java.common.rendering.PlaneRenderer;
 import kr.ac.jbnu.se.doview.java.common.rendering.PointCloudRenderer;
 import kr.ac.jbnu.se.doview.java.common.rendering.Texture;
-import kr.ac.jbnu.se.doview.java.helloar.R;
+import kr.ac.jbnu.se.doview.java.R;
 import kr.ac.jbnu.se.doview.java.model.GlobalStorage;
 import kr.ac.jbnu.se.doview.java.rendering.GLTFRenderer;
 

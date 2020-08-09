@@ -2,9 +2,9 @@ package kr.ac.jbnu.se.doview.java;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity;
 
-import kr.ac.jbnu.se.doview.java.helloar.R;
+import kr.ac.jbnu.se.doview.java.R;
 
 public class FirstAuthActivity extends AppCompatActivity {
     private Intent intent;
