@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import kr.ac.jbnu.se.doview.java.R;
 import kr.ac.jbnu.se.doview.java.model.GlobalStorage;
 import kr.ac.jbnu.se.doview.java.view.AssetListAdapter;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView mainAssetListView;
     private AssetListAdapter assetListAdapter;
+
+    private FirebaseAuth firebaseAuth;
 
     private Button btnNickName, btnLogOut;
     private View dialogView;
@@ -39,10 +43,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(splashIntent);
         // splash end
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() == null) {
+            Intent googleLoginIntent = new Intent(this, GoogleLoginActivity.class);
+            startActivity(googleLoginIntent);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Log.d(TAG, "-----" + GlobalStorage.arDataHashMap.size());
 
         mainAssetListView = (ListView)findViewById(R.id.main_list_listview);
         assetListAdapter = new AssetListAdapter(this);
@@ -131,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 assetListAdapter.notifyDataSetChanged();
             }
-        }, 5000);
+        }, 15000);
     }
 
 
