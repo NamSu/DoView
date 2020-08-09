@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import kr.ac.jbnu.se.doview.java.helloar.R;
+import kr.ac.jbnu.se.doview.java.R;
 import kr.ac.jbnu.se.doview.java.model.GlobalStorage;
 import kr.ac.jbnu.se.doview.java.view.AssetListAdapter;
 
@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private ListView mainAssetListView;
     private AssetListAdapter assetListAdapter;
 
-    Button btnNickName, btnLogOut;
-    View dialogView;
-    TextView textNickName;
-    EditText editNickName;
+    private Button btnNickName, btnLogOut;
+    private View dialogView;
+    private TextView textNickName;
+    private EditText editNickName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
