@@ -45,12 +45,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String assetName = assetListAdapter.getAssetArrayString(position);
 
-                Log.d(TAG, "------" + assetListAdapter.getAssetArrayString(position));
-
                 String[] checkObjString = GlobalStorage.arDataHashMap.get(assetName);
                 assert checkObjString != null;
-
-                Log.d(TAG, "------0 "+ checkObjString[0]);
 
                 if (checkObjString[0].contains("obj")) { // obj
                     GlobalStorage.isModelObj = true;
