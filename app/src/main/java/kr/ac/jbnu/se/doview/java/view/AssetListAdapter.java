@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import kr.ac.jbnu.se.doview.java.helloar.R;
 import kr.ac.jbnu.se.doview.java.model.GlobalStorage;
 
 public class AssetListAdapter extends BaseAdapter {

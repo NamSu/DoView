@@ -10,8 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import kr.ac.jbnu.se.doview.java.helloar.R;
@@ -23,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView mainAssetListView;
     private AssetListAdapter assetListAdapter;
+
+    Button btnNickName, btnLogOut;
+    View dialogView;
+    TextView textNickName;
+    EditText editNickName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +84,50 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnLogOut = (Button) findViewById(R.id.main_drawer_logout_btn);
+        btnNickName = (Button) findViewById(R.id.main_drawer_name_btn);
+
+        textNickName = (TextView) findViewById(R.id.main_drawer_user_name);
+
+        btnNickName.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialogView = (View) View.inflate(MainActivity.this,
+                        R.layout.dialog_nickname, null);
+                AlertDialog.Builder dlg = new AlertDialog.Builder(
+                        MainActivity.this);
+                dlg.setTitle("닉네임 설정");
+                dlg.setView(dialogView);
+                dlg.setPositiveButton("확인",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // TODO Auto-generated method stub
+                                editNickName = (EditText) dialogView
+                                        .findViewById(R.id.editNickName);
+
+                                textNickName.setText(editNickName.getText().toString());
+
+                            }
+                        });
+                dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dlg.show();
+            }});
+
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                FirebaseAuth.getInstance().signOut();
+//                Intent I = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(I);
+                finish();
+            }
+        });
+
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -85,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 5000);
     }
+
 
     @Override
     public void onBackPressed() {
