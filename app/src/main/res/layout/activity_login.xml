@@ -30,7 +30,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
-        android:fontFamily="@font/GodoM"
+        android:fontFamily="@font/godom"
         android:hint="E-mail"
         android:inputType="textEmailAddress" />
     ​
@@ -42,7 +42,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/GodoM"
+        android:fontFamily="@font/godom"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword" />
@@ -52,7 +52,7 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/GodoM"
+        android:fontFamily="@font/godom"
         android:text="자동 로그인"/>
     ​
     <LinearLayout
@@ -65,7 +65,7 @@
             android:id="@+id/btn_login"
             android:layout_gravity="center"
             android:background="#29BDC7"
-            android:fontFamily="@font/GodoM"
+            android:fontFamily="@font/godom"
             android:layout_width="80sp"
             android:layout_height="40sp"
             android:text="log in"
@@ -84,7 +84,7 @@
             android:layout_width="80sp"
             android:layout_height="40sp"
             android:layout_gravity="center"
-            android:fontFamily="@font/GodoM"
+            android:fontFamily="@font/godom"
             android:background="#29BDC7"
             android:textColor="@android:color/white"
             android:textSize="20sp"

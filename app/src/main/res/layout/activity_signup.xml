@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="@font/GodoM"
+        android:fontFamily="@font/godom"
         android:text="회원가입"
         android:textColor="@android:color/black"
         android:textSize="17sp" />
@@ -45,7 +45,7 @@
         android:layout_gravity="center"
         android:ems="10"
         android:hint="E-mail"
-        android:fontFamily="@font/GodoM"
+        android:fontFamily="@font/godom"
         android:inputType="textEmailAddress"
         android:textColor="@android:color/black" />
     ​
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:fontFamily="@font/GodoM"
+        android:fontFamily="@font/godom"
         android:hint="Password"
         android:inputType="textPassword"
         android:textColor="@android:color/black" />
@@ -68,7 +68,7 @@
         android:background="#29BDC7"
         android:text="Join"
         android:textSize="22sp"
-        android:fontFamily="@font/GodoM"
+        android:fontFamily="@font/godom"
         android:textColor="@android:color/white" />
 
 </LinearLayout>

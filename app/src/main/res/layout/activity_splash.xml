@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:background="#29BDC7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff">
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:context="kr.ac.jbnu.se.doview.java.LogInActivity">
+        ​
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_splash_test"
-            android:layout_centerInParent="true"/>
+            android:id="@+id/color"
+            android:layout_width="216dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:gravity="right"
+            android:src="@drawable/img_splash_test" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/textView_signUpTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/godom"
+            android:text="Do-View"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
